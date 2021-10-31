@@ -31,7 +31,7 @@ const Tables = (props) => {
           <TableRow>
             <TableCell align='center'>10:00</TableCell>
             <TableCell align='center'>
-              <Button component={Link} to={{ pathname: `${process.env.PUBLIC_URL}/tables/booking/237`, query: { hello } }}>Reservation 237</Button>
+              <Button component={Link} to={`${process.env.PUBLIC_URL}/tables/booking/237`}>Reservation 237</Button>
             </TableCell>
             <TableCell align='center'>-</TableCell>
             <TableCell align='center'>
