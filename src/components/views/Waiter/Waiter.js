@@ -17,7 +17,7 @@ class Waiter extends React.Component {
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
-    tables: PropTypes.object,
+    tables: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   }
 
   componentDidMount() {
@@ -101,7 +101,7 @@ class Waiter extends React.Component {
                     )}
                   </TableCell>
                   <TableCell>
-                    <Button onClick={this.props.updateTables}>{this.renderActions(row.status)}</Button>
+                    <Button onClick={() => this.props.updateTables(row.id, this.renderActions(row.status))}>{this.renderActions(row.status)}</Button>
                   </TableCell>
                 </TableRow>
               ))}

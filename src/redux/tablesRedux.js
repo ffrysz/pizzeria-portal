@@ -37,14 +37,19 @@ export const fetchFromAPI = () => {
   };
 };
 
-export const postToAPI = () => {
+export const postToAPI = (id, newStatus) => {
   return (dispatch, getState) => {
+    const oldData = getState();
+    oldData.tables.data[id - 1].status = newStatus;
+    const newData = getState().tables;
+    // console.log(newData);
 
-    Axios
-      .post(`${api.url}/api/${api.tables}`, {
-
-      })
-      .then(dispatch(fetchUpdate()))
+    Axios({
+      method: 'post',
+      url: `${api.url}/api/${api.tables}`,
+      data: newData.data,
+    })
+      .then(dispatch(fetchUpdate(newData.data)))
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
@@ -73,19 +78,16 @@ export default function reducer(statePart = [], action = {}) {
         data: action.payload,
       };
     }
-    // case FETCH_UPDATE: {
-    //   return {
-    //     ...statePart,
-    //     loading: {
-    //       active: false,
-    //       error: false,
-    //     },
-    //     ...data,
-    //     data: {
-    //       action.payload.id:
-    //     }
-    //   };
-    // }
+    case FETCH_UPDATE: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        data: action.payload,
+      };
+    }
     case FETCH_ERROR: {
       return {
         ...statePart,
