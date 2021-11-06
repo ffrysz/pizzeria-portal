@@ -15,11 +15,14 @@ import BookingId from './components/views/Tables/BookingId.js';
 import Events from './components/views/Tables/Events.js';
 import NewEvent from './components/views/Tables/NewEvent.js';
 import EventId from './components/views/Tables/EventId.js';
-import Waiter from './components/views/Waiter/Waiter.js';
+import Waiter from './components/views/Waiter/WaiterContainer.js';
 import Order from './components/views/Waiter/Order.js';
 import NewOrder from './components/views/Waiter/NewOrder.js';
 import OrderId from './components/views/Waiter/OrderId.js';
 import Kitchen from './components/views/Kitchen/Kitchen.js';
+
+import { Provider } from 'react-redux';
+import store from './redux/store.js';
 
 const theme = createTheme({
   palette: {
@@ -34,43 +37,45 @@ const theme = createTheme({
 
 function App() {
   return (
-    <BrowserRouter>
-      <StylesProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <MainLayout>
-            <AnimatedSwitch
-              atEnter={{
-                top: 200,
-                opacity: 0,
-              }}
-              atLeave={{
-                top: 200,
-                opacity: 0,
-              }}
-              atActive={{
-                top: 0,
-                opacity: 1,
-              }}
-            >
-              <Route exact path={`${process.env.PUBLIC_URL}/`} component={Homepage} />
-              <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
-              <Route exact path={`${process.env.PUBLIC_URL}/tables`} component={Tables} />
-              <Route exact path={`${process.env.PUBLIC_URL}/tables/booking`} component={Booking} />
-              <Route exact path={`${process.env.PUBLIC_URL}/tables/booking/new`} component={NewBooking} />
-              <Route exact path={`${process.env.PUBLIC_URL}/tables/booking/:id`} component={BookingId} />
-              <Route exact path={`${process.env.PUBLIC_URL}/tables/events`} component={Events} />
-              <Route exact path={`${process.env.PUBLIC_URL}/tables/events/new`} component={NewEvent} />
-              <Route exact path={`${process.env.PUBLIC_URL}/tables/events/:id`} component={EventId} />
-              <Route exact path={`${process.env.PUBLIC_URL}/waiter`} component={Waiter} />
-              <Route exact path={`${process.env.PUBLIC_URL}/waiter/order`} component={Order} />
-              <Route exact path={`${process.env.PUBLIC_URL}/waiter/order/new`} component={NewOrder} />
-              <Route exact path={`${process.env.PUBLIC_URL}/waiter/order/:id`} component={OrderId} />
-              <Route exact path={`${process.env.PUBLIC_URL}/kitchen`} component={Kitchen} />
-            </AnimatedSwitch>
-          </MainLayout>
-        </ThemeProvider>
-      </StylesProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <StylesProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <MainLayout>
+              <AnimatedSwitch
+                atEnter={{
+                  top: 200,
+                  opacity: 0,
+                }}
+                atLeave={{
+                  top: 200,
+                  opacity: 0,
+                }}
+                atActive={{
+                  top: 0,
+                  opacity: 1,
+                }}
+              >
+                <Route exact path={`${process.env.PUBLIC_URL}/`} component={Homepage} />
+                <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
+                <Route exact path={`${process.env.PUBLIC_URL}/tables`} component={Tables} />
+                <Route exact path={`${process.env.PUBLIC_URL}/tables/booking`} component={Booking} />
+                <Route exact path={`${process.env.PUBLIC_URL}/tables/booking/new`} component={NewBooking} />
+                <Route exact path={`${process.env.PUBLIC_URL}/tables/booking/:id`} component={BookingId} />
+                <Route exact path={`${process.env.PUBLIC_URL}/tables/events`} component={Events} />
+                <Route exact path={`${process.env.PUBLIC_URL}/tables/events/new`} component={NewEvent} />
+                <Route exact path={`${process.env.PUBLIC_URL}/tables/events/:id`} component={EventId} />
+                <Route exact path={`${process.env.PUBLIC_URL}/waiter`} component={Waiter} />
+                <Route exact path={`${process.env.PUBLIC_URL}/waiter/order`} component={Order} />
+                <Route exact path={`${process.env.PUBLIC_URL}/waiter/order/new`} component={NewOrder} />
+                <Route exact path={`${process.env.PUBLIC_URL}/waiter/order/:id`} component={OrderId} />
+                <Route exact path={`${process.env.PUBLIC_URL}/kitchen`} component={Kitchen} />
+              </AnimatedSwitch>
+            </MainLayout>
+          </ThemeProvider>
+        </StylesProvider>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
