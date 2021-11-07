@@ -39,17 +39,16 @@ export const fetchFromAPI = () => {
 
 export const postToAPI = (id, newStatus) => {
   return (dispatch, getState) => {
-    const oldData = getState();
-    oldData.tables.data[id - 1].status = newStatus;
-    const newData = getState().tables;
+    const newData = getState();
+    newData.tables.data[id - 1].status = newStatus;
     // console.log(newData);
 
     Axios({
       method: 'post',
       url: `${api.url}/api/${api.tables}`,
-      data: newData.data,
+      data: newData.tables.data,
     })
-      .then(dispatch(fetchUpdate(newData.data)))
+      .then(res => dispatch(fetchUpdate(res.data)))
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
